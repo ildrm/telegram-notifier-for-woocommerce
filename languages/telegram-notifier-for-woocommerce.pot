@@ -1,0 +1,424 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Telegram Notifier\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-15 10:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.7.1; wp-6.7.2\n"
+"X-Domain: wc-telegram-notifier"
+
+#: wc-telegram-notifier.php:106
+msgid "0"
+msgstr ""
+
+#: wc-telegram-notifier.php:278
+#, php-format
+msgid "[View and Edit Order on Site](%s)"
+msgstr ""
+
+#: templates/settings-page.php:102
+msgid "Add the bot to your group/channel"
+msgstr ""
+
+#: wc-telegram-notifier.php:236
+#, php-format
+msgid "Address: %s"
+msgstr ""
+
+#: templates/settings-page.php:76
+msgid "API URL Settings"
+msgstr ""
+
+#: templates/settings-page.php:90
+msgid ""
+"Available patterns: {bot_token}, {method}. Example: https://your-domain."
+"com/telegram/{bot_token}/{method}"
+msgstr ""
+
+#: templates/settings-page.php:4
+msgid "Basic Settings"
+msgstr ""
+
+#: templates/settings-page.php:97
+msgid "Bot Setup Guide:"
+msgstr ""
+
+#: templates/settings-page.php:7
+msgid "Bot Token"
+msgstr ""
+
+#: wc-telegram-notifier.php:286
+msgid "Bot token or chat ID is empty"
+msgstr ""
+
+#: wc-telegram-notifier.php:131
+msgid "Cancelled"
+msgstr ""
+
+#: wc-telegram-notifier.php:150
+msgid "Card to Card"
+msgstr ""
+
+#: wc-telegram-notifier.php:142
+msgid "Cash on Delivery"
+msgstr ""
+
+#: templates/settings-page.php:14
+msgid "Chat ID"
+msgstr ""
+
+#: wc-telegram-notifier.php:144
+msgid "Check Payment"
+msgstr ""
+
+#: templates/settings-page.php:110
+msgid "Click \"Send Test Message\" to verify settings"
+msgstr ""
+
+#: wc-telegram-notifier.php:130
+msgid "Completed"
+msgstr ""
+
+#: templates/settings-page.php:101
+msgid "Copy the received token to Bot Token field"
+msgstr ""
+
+#: templates/settings-page.php:100
+msgid "Create a new bot using /newbot command"
+msgstr ""
+
+#: templates/settings-page.php:86
+msgid "Custom API URL"
+msgstr ""
+
+#: wc-telegram-notifier.php:234
+#, php-format
+msgid "Customer: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:143
+msgid "Direct Bank Transfer"
+msgstr ""
+
+#: wc-telegram-notifier.php:246
+#, php-format
+msgid "Discount: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:134
+msgid "Draft"
+msgstr ""
+
+#: templates/settings-page.php:35
+msgid "Enable proxy for API requests"
+msgstr ""
+
+#: templates/settings-page.php:104
+msgid "Enter the correct Chat ID:"
+msgstr ""
+
+#: wc-telegram-notifier.php:180
+msgid "Error getting order"
+msgstr ""
+
+#: wc-telegram-notifier.php:417
+msgid "Error sending test message. Please check logs."
+msgstr ""
+
+#: wc-telegram-notifier.php:133
+msgid "Failed"
+msgstr ""
+
+#: wc-telegram-notifier.php:253
+#, php-format
+msgid "Final Amount: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:242
+msgid "Financial Information:"
+msgstr ""
+
+#: templates/settings-page.php:17
+msgid "For channel ID: @username- or numeric ID with hyphen"
+msgstr ""
+
+#: templates/settings-page.php:106
+msgid "For channel: @username- or -100xxxxxxxxxx"
+msgstr ""
+
+#: templates/settings-page.php:107
+msgid "For group: -xxxxxxxxxx"
+msgstr ""
+
+#: templates/settings-page.php:10
+msgid "Get token from @BotFather"
+msgstr ""
+
+#: wc-telegram-notifier.php:151
+msgid "IDPay"
+msgstr ""
+
+#: wc-telegram-notifier.php:261
+#, php-format
+msgid "IP: %s"
+msgstr ""
+
+#: templates/settings-page.php:103
+msgid "Make the bot admin of the group/channel"
+msgstr ""
+
+#: wc-telegram-notifier.php:149
+msgid "Mellat Payment"
+msgstr ""
+
+#: wc-telegram-notifier.php:347
+msgid "Message sent successfully"
+msgstr ""
+
+#: wc-telegram-notifier.php:156
+msgid "NextPay"
+msgstr ""
+
+#: wc-telegram-notifier.php:187
+msgid "No products"
+msgstr ""
+
+#: wc-telegram-notifier.php:220 wc-telegram-notifier.php:234
+#: wc-telegram-notifier.php:235
+msgid "Not registered"
+msgstr ""
+
+#: wc-telegram-notifier.php:129
+msgid "On Hold"
+msgstr ""
+
+#: templates/settings-page.php:71
+msgid "Optional: Password if proxy requires authentication"
+msgstr ""
+
+#: templates/settings-page.php:24
+msgid "Optional: Topic ID for supergroups"
+msgstr ""
+
+#: templates/settings-page.php:64
+msgid "Optional: Username if proxy requires authentication"
+msgstr ""
+
+#: wc-telegram-notifier.php:233
+#, php-format
+msgid "Order: \\#%s"
+msgstr ""
+
+#: wc-telegram-notifier.php:152
+msgid "Pay.ir"
+msgstr ""
+
+#: wc-telegram-notifier.php:259
+#, php-format
+msgid "Payment Method: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:145
+msgid "PayPing"
+msgstr ""
+
+#: wc-telegram-notifier.php:127
+msgid "Pending Payment"
+msgstr ""
+
+#: wc-telegram-notifier.php:235
+#, php-format
+msgid "Phone: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:362
+#, php-format
+msgid ""
+"Previous Status: %s\n"
+"New Status: %s\n"
+msgstr ""
+
+#: wc-telegram-notifier.php:128
+msgid "Processing"
+msgstr ""
+
+#: wc-telegram-notifier.php:184
+msgid "Products in order:"
+msgstr ""
+
+#: templates/settings-page.php:49
+msgid "Proxy IP"
+msgstr ""
+
+#: templates/settings-page.php:68
+msgid "Proxy Password"
+msgstr ""
+
+#: templates/settings-page.php:55
+msgid "Proxy Port"
+msgstr ""
+
+#: templates/settings-page.php:29
+msgid "Proxy Settings"
+msgstr ""
+
+#: templates/settings-page.php:39
+msgid "Proxy Type"
+msgstr ""
+
+#: templates/settings-page.php:61
+msgid "Proxy Username"
+msgstr ""
+
+#: wc-telegram-notifier.php:132
+msgid "Refunded"
+msgstr ""
+
+#: wc-telegram-notifier.php:115
+msgid "Rial"
+msgstr ""
+
+#: wc-telegram-notifier.php:148
+msgid "Saman Electronic Payment"
+msgstr ""
+
+#: templates/settings-page.php:115
+msgid "Save Settings"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Send notifications to Telegram when WooCommerce orders are created or updated"
+msgstr ""
+
+#: templates/settings-page.php:116
+msgid "Send Test Message"
+msgstr ""
+
+#: wc-telegram-notifier.php:330
+#, php-format
+msgid "Sending request to: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:155
+msgid "Sepordeh"
+msgstr ""
+
+#: wc-telegram-notifier.php:407
+msgid "Settings saved successfully."
+msgstr ""
+
+#. Author of the plugin
+msgid "Shahin Ilderemi<ildrm@hotmail.com>"
+msgstr ""
+
+#: wc-telegram-notifier.php:154
+msgid "SizPay"
+msgstr ""
+
+#: wc-telegram-notifier.php:250
+#, php-format
+msgid "Tax: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:343
+#, php-format
+msgid "Telegram API Error: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:84
+msgid "Telegram Notification"
+msgstr ""
+
+#: wc-telegram-notifier.php:83 templates/settings-page.php:2
+msgid "Telegram Notification Settings"
+msgstr ""
+
+#: wc-telegram-notifier.php:415
+msgid "Test message sent successfully."
+msgstr ""
+
+#: templates/settings-page.php:21
+msgid "Thread ID"
+msgstr ""
+
+#: wc-telegram-notifier.php:119
+msgid "Toman"
+msgstr ""
+
+#: wc-telegram-notifier.php:243
+#, php-format
+msgid "Total Products Amount: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:196
+msgid "units"
+msgstr ""
+
+#: wc-telegram-notifier.php:342
+msgid "Unknown error"
+msgstr ""
+
+#: templates/settings-page.php:82
+msgid "Use custom API URL instead of official Telegram API"
+msgstr ""
+
+#: templates/settings-page.php:79
+msgid "Use Custom URL"
+msgstr ""
+
+#: templates/settings-page.php:32
+msgid "Use Proxy"
+msgstr ""
+
+#: wc-telegram-notifier.php:153
+msgid "Vandar"
+msgstr ""
+
+#: templates/settings-page.php:99
+msgid "Visit @BotFather on Telegram"
+msgstr ""
+
+#: wc-telegram-notifier.php:73 wc-telegram-notifier.php:429
+msgid "WooCommerce is required for this plugin to work."
+msgstr ""
+
+#. Name of the plugin
+msgid "WooCommerce Telegram Notifier"
+msgstr ""
+
+#: wc-telegram-notifier.php:334
+#, php-format
+msgid "WordPress HTTP Error: %s"
+msgstr ""
+
+#: wc-telegram-notifier.php:146 wc-telegram-notifier.php:147
+msgid "ZarinPal"
+msgstr ""
+
+#: wc-telegram-notifier.php:366
+msgid "📦 Order Status Changed"
+msgstr ""
+
+#: wc-telegram-notifier.php:411
+msgid ""
+"🔔 This is a test message.\n"
+"\n"
+"If you see this message, your settings are correct."
+msgstr ""
+
+#: wc-telegram-notifier.php:354
+msgid "🛍 New Order"
+msgstr ""
+
+msgid "Telegram Notifier for WooCommerce"
+msgstr ""
