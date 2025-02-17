@@ -2,7 +2,7 @@
 /*
 Plugin Name: Telegram Notifier for WooCommerce
 Description: Send notifications to Telegram when WooCommerce orders are created or updated
-Version: 1.0
+Version: 1.1
 Author: Shahin Ilderemi<ildrm@hotmail.com>
 Text Domain: telegram-notifier-for-woocommerce
 Domain Path: /languages
@@ -64,7 +64,8 @@ class WC_Telegram_Notifier {
 
     public function init() {
         if ($this->check_woocommerce()) {
-            add_action('woocommerce_new_order', array($this, 'handle_new_order'), 10, 1);
+            // add_action('woocommerce_new_order', array($this, 'handle_new_order'), 10, 1);
+            add_action('woocommerce_checkout_order_processed', array($this, 'handle_new_order'), 10, 1);
             add_action('woocommerce_order_status_changed', array($this, 'handle_status_change'), 10, 3);
         }
     }
