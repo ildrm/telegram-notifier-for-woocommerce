@@ -1,10 +1,12 @@
 <?php
 /*
-Plugin Name: Telegram Notifier for WooCommerce
-Description: Send notifications to Telegram when WooCommerce orders are created or updated
+Plugin Name: WooCommerce Message Notifier
+Plugin URI: https://wordpress.org/plugins/wc-message-notifier/
+Description: Send notifications to messaging channels when WooCommerce orders are created or updated
 Version: 1.1
-Author: Shahin Ilderemi<ildrm@hotmail.com>
-Text Domain: telegram-notifier-for-woocommerce
+Author: Shahin Ilderemi
+Author URI: https://profiles.wordpress.org/msdildrm
+Text Domain: wc-message-notifier
 Domain Path: /languages
 License: GPL v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +16,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-class WC_Telegram_Notifier {
+class WC_Message_Notifier {
     private static $instance = null;
     private $bot_token;
     private $chat_id;
@@ -59,7 +61,7 @@ class WC_Telegram_Notifier {
     }
 
     public function load_plugin_textdomain() {
-        load_plugin_textdomain('telegram-notifier-for-woocommerce', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+        load_plugin_textdomain('wc-message-notifier', false, dirname(plugin_basename(__FILE__)) . '/languages/');
     }
 
     public function init() {
@@ -74,7 +76,7 @@ class WC_Telegram_Notifier {
         if (!class_exists('WooCommerce')) {
             if (!in_array('woocommerce/woocommerce.php', apply_filters('active_plugins', get_option('active_plugins')))) {
                 add_action('admin_notices', function() {
-                    echo '<div class="error"><p>' . esc_html__('WooCommerce is required for this plugin to work.', 'telegram-notifier-for-woocommerce') . '</p></div>';
+                    echo '<div class="error"><p>' . esc_html__('WooCommerce is required for this plugin to work.', 'wc-message-notifier') . '</p></div>';
                 });
                 return false;
             }
@@ -84,10 +86,10 @@ class WC_Telegram_Notifier {
 
     public function add_menu() {
         add_options_page(
-            esc_html__('Telegram Notification Settings', 'telegram-notifier-for-woocommerce'),
-            esc_html__('Telegram Notification', 'telegram-notifier-for-woocommerce'),
+            esc_html__('Telegram Notification Settings', 'wc-message-notifier'),
+            esc_html__('Telegram Notification', 'wc-message-notifier'),
             'manage_options',
-            'telegram-notifier-for-woocommerce',
+            'wc-message-notifier',
             array($this, 'settings_page')
         );
     }
@@ -103,7 +105,7 @@ class WC_Telegram_Notifier {
 
     private function format_price($amount, $currency) {
         if ($amount == 0) {
-            return esc_html__('0', 'telegram-notifier-for-woocommerce');
+            return esc_html__('0', 'wc-message-notifier');
         }
         
         $persian_numbers = array('۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹');
@@ -112,11 +114,11 @@ class WC_Telegram_Notifier {
         
         switch ($currency) {
             case 'IRR':
-                return $formatted_amount . ' ' . esc_html__('Rial', 'telegram-notifier-for-woocommerce');
+                return $formatted_amount . ' ' . esc_html__('Rial', 'wc-message-notifier');
             case 'IRT':
             case 'IRHR':
             case 'IRHT':
-                return $formatted_amount . ' ' . esc_html__('Toman', 'telegram-notifier-for-woocommerce');
+                return $formatted_amount . ' ' . esc_html__('Toman', 'wc-message-notifier');
             default:
                 return $formatted_amount . ' ' . $currency;
         }
@@ -124,14 +126,14 @@ class WC_Telegram_Notifier {
 
     private function translate_status($status) {
         $statuses = array(
-            'pending' => esc_html__('Pending Payment', 'telegram-notifier-for-woocommerce'),
-            'processing' => esc_html__('Processing', 'telegram-notifier-for-woocommerce'),
-            'on-hold' => esc_html__('On Hold', 'telegram-notifier-for-woocommerce'),
-            'completed' => esc_html__('Completed', 'telegram-notifier-for-woocommerce'),
-            'cancelled' => esc_html__('Cancelled', 'telegram-notifier-for-woocommerce'),
-            'refunded' => esc_html__('Refunded', 'telegram-notifier-for-woocommerce'),
-            'failed' => esc_html__('Failed', 'telegram-notifier-for-woocommerce'),
-            'checkout-draft' => esc_html__('Draft', 'telegram-notifier-for-woocommerce')
+            'pending' => esc_html__('Pending Payment', 'wc-message-notifier'),
+            'processing' => esc_html__('Processing', 'wc-message-notifier'),
+            'on-hold' => esc_html__('On Hold', 'wc-message-notifier'),
+            'completed' => esc_html__('Completed', 'wc-message-notifier'),
+            'cancelled' => esc_html__('Cancelled', 'wc-message-notifier'),
+            'refunded' => esc_html__('Refunded', 'wc-message-notifier'),
+            'failed' => esc_html__('Failed', 'wc-message-notifier'),
+            'checkout-draft' => esc_html__('Draft', 'wc-message-notifier')
         );
         
         return isset($statuses[$status]) ? $statuses[$status] : $status;
@@ -139,21 +141,21 @@ class WC_Telegram_Notifier {
 
     private function translate_payment_method($method) {
         $methods = array(
-            'cod' => esc_html__('Cash on Delivery', 'telegram-notifier-for-woocommerce'),
-            'bacs' => esc_html__('Direct Bank Transfer', 'telegram-notifier-for-woocommerce'),
-            'cheque' => esc_html__('Check Payment', 'telegram-notifier-for-woocommerce'),
-            'payping' => esc_html__('PayPing', 'telegram-notifier-for-woocommerce'),
-            'WC_ZPal' => esc_html__('ZarinPal', 'telegram-notifier-for-woocommerce'),
-            'zarinpal' => esc_html__('ZarinPal', 'telegram-notifier-for-woocommerce'),
-            'sep' => esc_html__('Saman Electronic Payment', 'telegram-notifier-for-woocommerce'),
-            'mellat' => esc_html__('Mellat Payment', 'telegram-notifier-for-woocommerce'),
-            'mabna' => esc_html__('Card to Card', 'telegram-notifier-for-woocommerce'),
-            'idpay' => esc_html__('IDPay', 'telegram-notifier-for-woocommerce'),
-            'payir' => esc_html__('Pay.ir', 'telegram-notifier-for-woocommerce'),
-            'vandar' => esc_html__('Vandar', 'telegram-notifier-for-woocommerce'),
-            'sizpay' => esc_html__('SizPay', 'telegram-notifier-for-woocommerce'),
-            'sepordeh' => esc_html__('Sepordeh', 'telegram-notifier-for-woocommerce'),
-            'nextpay' => esc_html__('NextPay', 'telegram-notifier-for-woocommerce')
+            'cod' => esc_html__('Cash on Delivery', 'wc-message-notifier'),
+            'bacs' => esc_html__('Direct Bank Transfer', 'wc-message-notifier'),
+            'cheque' => esc_html__('Check Payment', 'wc-message-notifier'),
+            'payping' => esc_html__('PayPing', 'wc-message-notifier'),
+            'WC_ZPal' => esc_html__('ZarinPal', 'wc-message-notifier'),
+            'zarinpal' => esc_html__('ZarinPal', 'wc-message-notifier'),
+            'sep' => esc_html__('Saman Electronic Payment', 'wc-message-notifier'),
+            'mellat' => esc_html__('Mellat Payment', 'wc-message-notifier'),
+            'mabna' => esc_html__('Card to Card', 'wc-message-notifier'),
+            'idpay' => esc_html__('IDPay', 'wc-message-notifier'),
+            'payir' => esc_html__('Pay.ir', 'wc-message-notifier'),
+            'vandar' => esc_html__('Vandar', 'wc-message-notifier'),
+            'sizpay' => esc_html__('SizPay', 'wc-message-notifier'),
+            'sepordeh' => esc_html__('Sepordeh', 'wc-message-notifier'),
+            'nextpay' => esc_html__('NextPay', 'wc-message-notifier')
         );
         
         return isset($methods[$method]) ? $methods[$method] : $method;
@@ -177,14 +179,14 @@ class WC_Telegram_Notifier {
 
     private function get_order_items_text($order) {
         if (!$order instanceof WC_Order) {
-            return esc_html__('Error getting order', 'telegram-notifier-for-woocommerce');
+            return esc_html__('Error getting order', 'wc-message-notifier');
         }
     
         $items = $order->get_items();
-        $text = sprintf("📝 %s\n", esc_html__('Products in order:', 'telegram-notifier-for-woocommerce'));
+        $text = sprintf("📝 %s\n", esc_html__('Products in order:', 'wc-message-notifier'));
         
         if (empty($items)) {
-            return $text . esc_html__('No products', 'telegram-notifier-for-woocommerce');
+            return $text . esc_html__('No products', 'wc-message-notifier');
         }
     
         foreach ($items as $item) {
@@ -193,7 +195,7 @@ class WC_Telegram_Notifier {
             $total = $item->get_total();
             
             $text .= "• " . $this->escape_markdown($item->get_name());
-            $text .= " \\| " . $this->escape_markdown($quantity . " " . esc_html__('units', 'telegram-notifier-for-woocommerce'));
+            $text .= " \\| " . $this->escape_markdown($quantity . " " . esc_html__('units', 'wc-message-notifier'));
             
             if ($item->get_subtotal() != $total) {
                 $text .= " \\| " . $this->escape_markdown($this->format_price($item->get_subtotal(), ''));
@@ -217,7 +219,7 @@ class WC_Telegram_Notifier {
 
         $address_parts = array_filter($address_parts);
         
-        return !empty($address_parts) ? implode('، ', $address_parts) : esc_html__('Not registered', 'telegram-notifier-for-woocommerce');
+        return !empty($address_parts) ? implode('، ', $address_parts) : esc_html__('Not registered', 'wc-message-notifier');
     }
 
     private function prepare_order_message($order, $title, $additional_info = '') {
@@ -231,44 +233,44 @@ class WC_Telegram_Notifier {
         
         $message = $this->escape_markdown($title) . "\n\n";
         /* translators: %s: Order number */
-        $message .= sprintf(esc_html__('Order: \#%s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($order->get_order_number())) . "\n";
+        $message .= sprintf(esc_html__('Order: \#%s', 'wc-message-notifier'), $this->escape_markdown($order->get_order_number())) . "\n";
         /* translators: %s: Customer name */
-        $message .= sprintf(esc_html__('Customer: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown(($order->get_formatted_billing_full_name() ?? $order->get_formatted_shipping_full_name() ?: esc_html__('Not registered', 'telegram-notifier-for-woocommerce')))) . "\n";
+        $message .= sprintf(esc_html__('Customer: %s', 'wc-message-notifier'), $this->escape_markdown(($order->get_formatted_billing_full_name() ?? $order->get_formatted_shipping_full_name() ?: esc_html__('Not registered', 'wc-message-notifier')))) . "\n";
         /* translators: %s: Phone number */
-        $message .= sprintf(esc_html__('Phone: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown(($order->get_billing_phone() ?? $order->get_shipping_phone() ?: esc_html__('Not registered', 'telegram-notifier-for-woocommerce')))) . "\n";
+        $message .= sprintf(esc_html__('Phone: %s', 'wc-message-notifier'), $this->escape_markdown(($order->get_billing_phone() ?? $order->get_shipping_phone() ?: esc_html__('Not registered', 'wc-message-notifier')))) . "\n";
         /* translators: %s: Address */
-        $message .= sprintf(esc_html__('Address: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($this->format_address($order))) . "\n\n";
+        $message .= sprintf(esc_html__('Address: %s', 'wc-message-notifier'), $this->escape_markdown($this->format_address($order))) . "\n\n";
         
         // اضافه کردن لیست محصولات
         $message .= $this->get_order_items_text($order) . "\n";
         
         // اطلاعات مالی
-        $message .= "💰 " . esc_html__('Financial Information:', 'telegram-notifier-for-woocommerce') . "\n";
+        $message .= "💰 " . esc_html__('Financial Information:', 'wc-message-notifier') . "\n";
         /* translators: %s: Total products amount */
-        $message .= sprintf(esc_html__('Total Products Amount: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($this->format_price($subtotal, $currency))) . "\n";
+        $message .= sprintf(esc_html__('Total Products Amount: %s', 'wc-message-notifier'), $this->escape_markdown($this->format_price($subtotal, $currency))) . "\n";
         
         if ($discount > 0) {
             /* translators: %s: Discount amount */
-            $message .= sprintf(esc_html__('Discount: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($this->format_price($discount, $currency))) . "\n";
+            $message .= sprintf(esc_html__('Discount: %s', 'wc-message-notifier'), $this->escape_markdown($this->format_price($discount, $currency))) . "\n";
         }
         
         if ($tax > 0) {
             /* translators: %s: Tax amount */
-            $message .= sprintf(esc_html__('Tax: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($this->format_price($tax, $currency))) . "\n";
+            $message .= sprintf(esc_html__('Tax: %s', 'wc-message-notifier'), $this->escape_markdown($this->format_price($tax, $currency))) . "\n";
         }
         
         /* translators: %s: Final amount */
-        $message .= sprintf(esc_html__('Final Amount: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($this->format_price($total, $currency))) . "\n";
+        $message .= sprintf(esc_html__('Final Amount: %s', 'wc-message-notifier'), $this->escape_markdown($this->format_price($total, $currency))) . "\n";
         
         if (!empty($additional_info)) {
             $message .= "\n" . $this->escape_markdown($additional_info);
         }
         
         /* translators: %s: Payment method */
-        $message .= sprintf(esc_html__('Payment Method: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($this->translate_payment_method($order->get_payment_method()))) . "\n";
+        $message .= sprintf(esc_html__('Payment Method: %s', 'wc-message-notifier'), $this->escape_markdown($this->translate_payment_method($order->get_payment_method()))) . "\n";
         
         /* translators: %s: IP address */
-        $message .= sprintf(esc_html__('IP: %s', 'telegram-notifier-for-woocommerce'), $this->escape_markdown($order->get_customer_ip_address())) . "\n\n";
+        $message .= sprintf(esc_html__('IP: %s', 'wc-message-notifier'), $this->escape_markdown($order->get_customer_ip_address())) . "\n\n";
     
         // افزودن لینک مدیریت سفارش با آدرس صحیح
         $home_url = home_url();
@@ -286,7 +288,7 @@ class WC_Telegram_Notifier {
         }
     
         /* translators: %s: Order URL */
-        $message .= "\n🔗 " . sprintf(esc_html__('[View and Edit Order on Site](%s)', 'telegram-notifier-for-woocommerce'), $this->escape_markdown_url($full_url)) . "\n" . $this->escape_markdown_url($full_url);
+        $message .= "\n🔗 " . sprintf(esc_html__('[View and Edit Order on Site](%s)', 'wc-message-notifier'), $this->escape_markdown_url($full_url)) . "\n" . $this->escape_markdown_url($full_url);
         
         return $message;
     }
@@ -294,7 +296,7 @@ class WC_Telegram_Notifier {
 
     private function send_notification($message) {
         if (empty($this->bot_token) || empty($this->chat_id)) {
-            $this->log(esc_html__('Bot token or chat ID is empty', 'telegram-notifier-for-woocommerce'), 'error');
+            $this->log(esc_html__('Bot token or chat ID is empty', 'wc-message-notifier'), 'error');
             return false;
         }
 
@@ -339,12 +341,12 @@ class WC_Telegram_Notifier {
         }
 
         /* translators: %s: URL */
-        $this->log(sprintf(esc_html__('Sending request to: %s', 'telegram-notifier-for-woocommerce'), $url), 'debug');
+        $this->log(sprintf(esc_html__('Sending request to: %s', 'wc-message-notifier'), $url), 'debug');
         $response = wp_remote_post($url, $args);
 
         if (is_wp_error($response)) {
             /* translators: %s: error message */
-            $this->log(sprintf(esc_html__('WordPress HTTP Error: %s', 'telegram-notifier-for-woocommerce'), $response->get_error_message()), 'error');
+            $this->log(sprintf(esc_html__('WordPress HTTP Error: %s', 'wc-message-notifier'), $response->get_error_message()), 'error');
             return false;
         }
 
@@ -352,20 +354,20 @@ class WC_Telegram_Notifier {
         $result = json_decode($body, true);
 
         if (!$result || !isset($result['ok']) || $result['ok'] !== true) {
-            $error = isset($result['description']) ? $result['description'] : esc_html__('Unknown error', 'telegram-notifier-for-woocommerce');
+            $error = isset($result['description']) ? $result['description'] : esc_html__('Unknown error', 'wc-message-notifier');
             /* translators: %s: error message */
-            $this->log(sprintf(esc_html__('Telegram API Error: %s', 'telegram-notifier-for-woocommerce'), $error), 'error');
+            $this->log(sprintf(esc_html__('Telegram API Error: %s', 'wc-message-notifier'), $error), 'error');
             return false;
         }
 
-        $this->log(esc_html__('Message sent successfully', 'telegram-notifier-for-woocommerce'), 'success');
+        $this->log(esc_html__('Message sent successfully', 'wc-message-notifier'), 'success');
         return true;
     }
 
     public function handle_new_order($order_id) {
         $order = wc_get_order($order_id);
         if ($order) {
-            $message = $this->prepare_order_message($order, esc_html__('🛍 New Order', 'telegram-notifier-for-woocommerce'));
+            $message = $this->prepare_order_message($order, esc_html__('🛍 New Order', 'wc-message-notifier'));
             $this->send_notification($message);
         }
     }
@@ -374,9 +376,9 @@ class WC_Telegram_Notifier {
         $order = wc_get_order($order_id);
         if ($order) {
             /* translators: %1$s: previous status, %2$s: new status */
-            $status_info = sprintf( __( 'Previous Status: %1$s\nNew Status: %2$s\n', 'telegram-notifier-for-woocommerce' ), $this->translate_status($old_status), $this->translate_status($new_status) );
+            $status_info = sprintf( __( 'Previous Status: %1$s\nNew Status: %2$s\n', 'wc-message-notifier' ), $this->translate_status($old_status), $this->translate_status($new_status) );
 
-            $message = $this->prepare_order_message($order, esc_html__('📦 Order Status Changed', 'telegram-notifier-for-woocommerce'), $status_info);
+            $message = $this->prepare_order_message($order, esc_html__('📦 Order Status Changed', 'wc-message-notifier'), $status_info);
             $this->send_notification($message);
         }
     }
@@ -393,7 +395,7 @@ class WC_Telegram_Notifier {
             // Verify nonce with proper sanitization
             $nonce = isset($_POST['telegram_notifier_nonce']) ? sanitize_text_field(wp_unslash($_POST['telegram_notifier_nonce'])) : '';
             if (!wp_verify_nonce(sanitize_text_field($nonce), 'telegram_notifier_settings')) {
-                wp_die(esc_html__('Security check failed', 'telegram-notifier-for-woocommerce'));
+                wp_die(esc_html__('Security check failed', 'wc-message-notifier'));
             }
     
             // Sanitize and save settings
@@ -422,17 +424,17 @@ class WC_Telegram_Notifier {
             update_option('telegram_notifier_use_custom_url', $this->use_custom_url);
             update_option('telegram_notifier_custom_api_url', $this->custom_api_url);
     
-            echo '<div class="updated"><p>' . esc_html__('Settings saved successfully.', 'telegram-notifier-for-woocommerce') . '</p></div>';
+            echo '<div class="updated"><p>' . esc_html__('Settings saved successfully.', 'wc-message-notifier') . '</p></div>';
         }
 
         if (isset($_POST['wc_telegram_test'])) {
-            $test_message = esc_html__("🔔 This is a test message.\n\nIf you see this message, your settings are correct.", 'telegram-notifier-for-woocommerce');
+            $test_message = esc_html__("🔔 This is a test message.\n\nIf you see this message, your settings are correct.", 'wc-message-notifier');
             $result = $this->send_notification($test_message);
             
             if ($result) {
-                echo '<div class="updated"><p>' . esc_html__('Test message sent successfully.', 'telegram-notifier-for-woocommerce') . '</p></div>';
+                echo '<div class="updated"><p>' . esc_html__('Test message sent successfully.', 'wc-message-notifier') . '</p></div>';
             } else {
-                echo '<div class="error"><p>' . esc_html__('Error sending test message. Please check logs.', 'telegram-notifier-for-woocommerce') . '</p></div>';
+                echo '<div class="error"><p>' . esc_html__('Error sending test message. Please check logs.', 'wc-message-notifier') . '</p></div>';
             }
         }
 
@@ -444,9 +446,9 @@ class WC_Telegram_Notifier {
 register_activation_hook(__FILE__, function() {
     if (!class_exists('WooCommerce')) {
         deactivate_plugins(plugin_basename(__FILE__));
-        wp_die(esc_html__('WooCommerce is required for this plugin to work.', 'telegram-notifier-for-woocommerce'));
+        wp_die(esc_html__('WooCommerce is required for this plugin to work.', 'wc-message-notifier'));
     }
 });
 
 // Initialize plugin
-add_action('plugins_loaded', array('WC_Telegram_Notifier', 'get_instance'));
+add_action('plugins_loaded', array('WC_Message_Notifier', 'get_instance'));
