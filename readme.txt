@@ -1,4 +1,4 @@
-=== WooCommerce Message Notifier ===
+=== Notifier for WooCommerce ===
 Contributors: msdildrm
 Tags: woocommerce, notifications, messaging, orders
 Requires at least: 5.0

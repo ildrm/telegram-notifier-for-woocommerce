@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WooCommerce Message Notifier
+Plugin Name: Notifier for WooCommerce
 Plugin URI: https://wordpress.org/plugins/wc-message-notifier/
 Description: Send notifications to messaging channels when WooCommerce orders are created or updated
 Version: 1.1
